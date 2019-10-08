@@ -606,7 +606,7 @@
                                                 </div>
                                             </div>
 
-                                            <button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More</button>
+                                            <button class="btn btn-primary btn-block m-t" id="cektes"><i class="fa fa-arrow-down"></i> Show More</button>
 
                                         </div>
 
@@ -930,6 +930,10 @@
             };
             var ctx = document.getElementById("polarChart").getContext("2d");
             var Polarchart = new Chart(ctx).PolarArea(polarData, polarOptions);
+
+            $("#cektes").click(function(){
+              alert("TEs");
+            });
 
         });
     </script>
