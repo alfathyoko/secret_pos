@@ -29,7 +29,9 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
+		$this->load->view('header');
 		$this->load->view('indexhome');
+		$this->load->view('footer');
 	}
 
 	public function index_get(){
