@@ -26,7 +26,7 @@ class Welcome extends CI_Controller {
 	 public function __construct(){
 		parent ::__construct();
     $this->load->helper(array('form', 'url'));
-		$this->API="http://localhost/secret_pos/Person";
+		$this->API="http://localhost/secret_pos/Api";
 		$this->load->library('session');
     $this->load->library('curl');
 		$this->load->helper('url');
@@ -39,10 +39,13 @@ class Welcome extends CI_Controller {
 		$data['datakontak'] = json_decode($this->curl->simple_get($this->API.'/index_get'));
 		$this->load->view('header');
 		$this->load->view('table_data_tables',$data);
-		$this->load->view('footer');
+		// $this->load->view('footer');
 	}
 
 	public function tesdata(){
-		echo json_encode($this->curl->simple_get($this->API.'/index_get'));
+		$data = json_decode($this->curl->simple_get($this->API.'/index_get'));
+
+		echo json_encode($data);
 	}
+
 }

@@ -2,7 +2,7 @@
 
 require APPPATH . 'libraries/REST_Controller.php';
 
-class Person extends REST_Controller{
+class Api extends REST_Controller{
 
   // construct
   public function __construct(){
@@ -13,7 +13,26 @@ class Person extends REST_Controller{
 
   // method index untuk menampilkan semua data person menggunakan method get
   public function index_get(){
-    $response = $this->PersonM->all_person();
+    $data = $this->PersonM->all_person();
+    $no = 1;
+    $respone = array();
+    $post = array();
+    $status = "";
+
+    foreach ($data as $key => $value) {
+      // code...
+      $btn = "<a href='#' onclick=\"#\" title='Cetak'><i class='fa fa-print'></i></a>
+          <a href='#' onclick=\"#\" title='Hapus '><i class='fa fa-close'></i></a>";
+      $posts[] = array(
+            "no" => $no,
+            "name" => $value['name'],
+            "address" => $value['address'],
+            "phone" => $value['phone'],
+            "action" => $btn,
+        );
+        $no++;
+    }
+    $response['data'] = $posts;
     $this->response($response);
   }
 
