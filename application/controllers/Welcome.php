@@ -43,7 +43,7 @@ class Welcome extends CI_Controller {
 	}
 
 	public function tesdata(){
-		$data = json_decode($this->curl->simple_get($this->API.'/index_get'));
+		$data = json_decode($this->curl->simple_get($this->API.'/index'));
 
 		echo json_encode($data);
 	}

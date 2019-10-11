@@ -36,6 +36,11 @@ class Api extends REST_Controller{
     $this->response($response);
   }
 
+  public function kasir_get(){
+    $response['data'] = $this->Master_data->all_person();
+    $this->response($response);
+  }
+
   // untuk menambah person menaggunakan method post
   public function index_post(){
     $response = $this->PersonM->add_person(
