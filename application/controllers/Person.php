@@ -8,6 +8,7 @@ class Person extends REST_Controller{
   public function __construct(){
     parent::__construct();
     $this->load->model('PersonM');
+    $this->load->model('Master_data');
   }
 
   // method index untuk menampilkan semua data person menggunakan method get
