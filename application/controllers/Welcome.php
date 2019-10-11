@@ -48,4 +48,12 @@ class Welcome extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function insertDataUser(){
+		$name = $this->input->post("name");
+		$address = $this->input->post("address");
+		$phone = $this->input->post("phone");
+
+		echo $name;
+	}
+
 }
