@@ -1,4 +1,5 @@
 <?php
+require APPPATH . 'libraries/REST_Controller.php';
 defined('BASEPATH') OR exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
@@ -20,19 +21,31 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	 var $API ="";
 
 	 public function __construct(){
 		parent ::__construct();
     $this->load->helper(array('form', 'url'));
+		$this->API="http://localhost/secret_pos/Api";
+		$this->load->library('session');
+    $this->load->library('curl');
+		$this->load->helper('url');
+
 		// $this->load->helper('url');
 	}
 
 	public function index()
 	{
-		$this->load->view('indexhome');
+		$data['datakontak'] = json_decode($this->curl->simple_get($this->API.'/index_get'));
+		$this->load->view('header');
+		$this->load->view('table_data_tables',$data);
+		// $this->load->view('footer');
 	}
 
-	public function index_get(){
+	public function tesdata(){
+		$data = json_decode($this->curl->simple_get($this->API.'/index'));
 
+		echo json_encode($data);
 	}
+
 }

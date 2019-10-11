@@ -2,7 +2,11 @@
 
 // extends class Model
 class PersonM extends CI_Model{
-
+  public function __construct()
+      {
+          parent::__construct();
+          $this->db = $this->load->database('default', TRUE);
+      }
   // response jika field ada yang kosong
   public function empty_response(){
     $response['status']=502;
@@ -43,11 +47,11 @@ class PersonM extends CI_Model{
   // mengambil semua data person
   public function all_person(){
 
-    $all = $this->db->get("tb_person")->result();
-    $response['status']=200;
-    $response['error']=false;
-    $response['person']=$all;
-    return $response;
+    $all = $this->db->get("tb_person")->result_array();
+    // $response['status']=200;
+    // $response['error']=false;
+    // $response['data']=$all;
+    return $all;
 
   }
 
