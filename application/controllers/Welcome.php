@@ -25,6 +25,7 @@ class Welcome extends CI_Controller {
 
 	 public function __construct(){
 		parent ::__construct();
+		$this->load->library('Htmllib');
     $this->load->helper(array('form', 'url'));
 		$this->API="http://localhost/secret_pos/Api";
 		$this->load->library('session');
@@ -49,11 +50,9 @@ class Welcome extends CI_Controller {
 	}
 
 	public function insertDataUser(){
-		$name = $this->input->post("name");
-		$address = $this->input->post("address");
-		$phone = $this->input->post("phone");
+		$data = json_decode($this->curl->simple_post($this->API.'/index_post'));
 
-		echo $name;
+		echo json_encode($data);
 	}
 
 }
