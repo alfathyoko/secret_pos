@@ -28,4 +28,14 @@ class Master_data extends CI_Model{
 
     }
 
+    public function all_person_id($id){
+        $this->db_master->select('*');
+        $this->db_master->from('tb_person');
+        $this->db_master->where('id',$id);
+        $all = $this->db_master->get()->result();
+        $response['data'] = $all;
+        return $response;
+
+    }
+
 }

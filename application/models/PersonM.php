@@ -55,11 +55,22 @@ class PersonM extends CI_Model{
 
   }
 
+  public function all_person_id($id){
+      $this->db->select('*');
+      $this->db->from('tb_person');
+      $this->db->where('id',$id);
+      $all = $this->db->get()->result();
+      $response['data'] = $all;
+      return $all;
+  }
+
   // hapus data person
   public function delete_person($id){
 
     if($id == ''){
-      return $this->empty_response();
+      $response['id'] = 'Kosong';
+      // return $this->empty_response();
+      return $response;
     }else{
       $where = array(
         "id"=>$id

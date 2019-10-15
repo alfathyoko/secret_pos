@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Dashboard</title>
+    <title>Secret POS | Dashboard</title>
 
     <link href="<?= base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -86,7 +86,7 @@
                             <li><a href="contacts.html">Menu Makanan</a></li>
                             <li><a href="profile.html">Meja</a></li>
                             <li><a href="projects.html">Member</a></li>
-                            <li><a href="project_detail.html">Pengguna</a></li>
+                            <li><a href="<?= base_url(); ?>Welcome">Pengguna</a></li>
                         </ul>
                     </li>
 
@@ -108,7 +108,7 @@
         </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                    <span class="m-r-sm text-muted welcome-message"> Secret POS</span>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">

@@ -83,20 +83,42 @@
 
                                 <p>Lengkapi data dibawah ini</p>
 
-                                <form action="<?= base_url(); ?>api/index" method="POST" role="form">
-                                    <div class="form-group"><label>Nama</label> <input type="text" name="name" placeholder="Nama" class="form-control"></div>
-                                    <div class="form-group"><label>Alamat</label> <input type="text" name="address" placeholder="Alamat" class="form-control"></div>
-                                    <div class="form-group"><label>Phone</label> <input type="text" name="phone" placeholder="Phone" class="form-control"></div>
-                                    <div>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Tambah</strong></button>
-                                    </div>
+                                <form id="form_add" role="form">
+                                    <input type="hidden" name="id" id="formId" class="form-control">
+                                    <div class="form-group"><label>Nama</label> <input type="text" name="name" id="formName" placeholder="Nama" class="form-control"></div>
+                                    <div class="form-group"><label>Alamat</label> <input type="text" name="address" id="formAddress" placeholder="Alamat" class="form-control"></div>
+                                    <div class="form-group"><label>Phone</label> <input type="text" name="phone" id="formPhone" placeholder="Phone" class="form-control"></div>
                                 </form>
+                                    <div>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id="tombolTambah" onclick="add_data_person()"><strong>Tambah</strong></button>
+                                        <button class="btn btn-sm btn-success pull-right m-t-n-xs hidden" id="tombolUbah" onclick="edit_data_person()"><strong>Ubah</strong></button>
+                                    </div>
                             </div>
                     </div>
                 </div>
                 </div>
             </div>
     </div>
+
+    <div id="modalDeleteData" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12"><h3 class="m-t-none m-b">Apakah Anda Yakin Untuk Menghapus Data Ini?</h3>
+
+                                <input type="hidden" name="id" id="formIdDelete" class="form-control">
+                                <div>
+                                    <button class="btn btn-sm btn-danger pull-right m-t-n-xs"  onclick="deleteData()"><strong>Oke</strong></button>
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" onclick="cancelDelete()"><strong>Cancel</strong></button>
+                                </div>
+                        </div>
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
 
 
 
@@ -150,8 +172,6 @@
         $(document).ready(function(){
           // alert("TES");
           load_refresh();
-
-
         })
 
         function load_refresh(){
@@ -172,7 +192,150 @@
         }
 
         function showModalInsert(){
+          $('#form_add')[0].reset();
+          $("#tombolTambah").removeClass("hidden");
+          $("#tombolUbah").addClass("hidden");
           $('#modalFormInsert').modal('show');
+        }
+
+        function add_data_person2(){
+          $.ajax({
+            url: '<?= base_url(); ?>api/index',
+            type: 'POST',
+            dataType: 'JSON',
+            data: $("#form_add").serialize(),
+            success: function (data) {
+              alert('The server say '+data);
+                return;
+
+          }
+        });
+        }
+
+        function add_data_person(){
+
+          $.ajax({
+            url: '<?= base_url(); ?>api/index',
+            type: 'POST',
+            dataType: 'JSON',
+            // beforeSend:function(){
+            //   $("#view_report").prop('disabled', true).html("<i class='fa fa-refresh fa-spin'></i> Please Wait ..");
+            //   $("#loading_css").removeClass("hidden");
+            //   $("#header-detail").addClass("hidden");
+            //   $("#table-detail").addClass("hidden");
+            //   var $target = $('html,body');
+            //   $target.animate({ scrollTop: $target.height() }, 1000);
+            // },
+            data: $("#form_add").serialize(),
+          })
+          .done((data) => {
+            console.log("Berhasil "+data.message);
+            $("#modalFormInsert").modal("hide");
+            toastr.success(data.message);
+            // $("#htm_apu_type").html(data[0].AC_APU_TYPE);
+            // if(data[0].AC_APU_TYPE==""){
+            //
+            //   $("#htm_apu_type").html('empty');
+            // }else{
+            //   $("#htm_apu_type").html(data[0].AC_APU_TYPE);
+            // }
+            // if(data[0].AC_APU_SN==""){
+            //   $("#htm_apu_sn").html('empty');
+            // }else{
+            //   $("#htm_apu_sn").html(data[0].AC_APU_SN);
+            // }
+            // $("#htm_csn").html(data[0].AC_CSN);
+            // $("#htm_tsn").html(data[0].AC_TSN);
+          })
+          .fail((data) => {
+            alert('gagal');
+            console.log("Gagal"+data.message);
+          })
+          .always(function() {
+            // $("#view_report").prop('disabled', false).html("<i class='fa fa-search'></i> Search");
+            // $("#view_report").button("reset");
+            // $("#loading_css").addClass("hidden");
+            // $("#table-detail").removeClass("hidden");
+            // $("#header-detail").removeClass("hidden");
+            console.log("selalu berhasil");
+            load_refresh();
+            // show_toaster(1, '', 'Success, data successfully displayed');
+
+          });
+        }
+
+        function editDataUser(id){
+            $("#tombolUbah").removeClass("hidden");
+            $("#tombolTambah").addClass("hidden");
+          $.ajax({
+            url: '<?= base_url() ?>/api/person',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {id: id},
+          })
+          .done((data) => {
+            console.log(data.data[0].name);
+            $("#formId").val(data.data[0].id);
+            $("#formName").val(data.data[0].name);
+            $("#formAddress").val(data.data[0].address);
+            $("#formPhone").val(data.data[0].phone);
+
+            toastr.success("Berhasil Menarik Data");
+          })
+          .fail(() => {
+            toastr.error("Gagal Menarik Data");
+          })
+          .always(() => {
+            toastr.success("Berhasil Menarik Data");
+            $("#modalFormInsert").modal('show');
+          });
+        }
+
+        function edit_data_person(){
+          $.ajax({
+            url: '<?= base_url() ?>/api/ubah',
+            type: 'POST',
+            dataType: 'JSON',
+            data: $("#form_add").serialize(),
+          })
+          .done((data) => {
+
+            toastr.success("Berhasil Mengubah Data");
+          })
+          .fail(() => {
+            toastr.error("Gagal Mengubah Data");
+          })
+          .always(() => {
+            load_refresh();
+            $("#modalFormInsert").modal('hide');
+          });
+        }
+
+        function deleteDataUser(id){
+          $("#formIdDelete").val(id);
+          $("#modalDeleteData").modal('show');
+
+        }
+
+        function deleteData(){
+          var valId = $("#formIdDelete").val();
+          $.ajax({
+            url: '<?= base_url() ?>/api/hapus',
+            type: 'DELETE',
+            // dataType: 'JSON',
+            data: {id: valId},
+          })
+          .done((data) => {
+
+            toastr.success("Berhasil Menghapus Data");
+          })
+          .fail(() => {
+            toastr.error("Gagal Menghapus Data");
+          })
+          .always(() => {
+            load_refresh();
+            $("#modalDeleteData").modal('hide');
+          });
         }
 
 
