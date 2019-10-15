@@ -86,7 +86,7 @@
                             <li><a href="contacts.html">Menu Makanan</a></li>
                             <li><a href="profile.html">Meja</a></li>
                             <li><a href="projects.html">Member</a></li>
-                            <li><a href="project_detail.html">Pengguna</a></li>
+                            <li><a href="<?= base_url(); ?>Welcome">Pengguna</a></li>
                         </ul>
                     </li>
 

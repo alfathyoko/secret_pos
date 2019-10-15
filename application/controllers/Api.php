@@ -7,7 +7,12 @@ class Api extends REST_Controller{
   // construct
   public function __construct(){
     header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+    $method = $_SERVER['REQUEST_METHOD'];
+        if ($method == "OPTIONS") {
+            die();
+        }
     parent::__construct();
     $this->load->model('PersonM');
     $this->load->model('Master_data');
@@ -77,19 +82,14 @@ class Api extends REST_Controller{
   }
 
   // hapus data person menggunakan method delete
-  public function index_delete(){
+  public function hapus_delete(){
     $response = $this->PersonM->delete_person(
         $this->delete('id')
       );
     $this->response($response);
   }
 
-  public function hapusdata_post(){
-    $response = $this->PersonM->delete_person(
-        $this->post('id')
-      );
-    $this->response($response);
-  }
+
 
 }
 

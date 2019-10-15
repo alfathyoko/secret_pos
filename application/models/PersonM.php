@@ -67,11 +67,10 @@ class PersonM extends CI_Model{
   // hapus data person
   public function delete_person($id){
 
-    echo $id;
-    return;
-
     if($id == ''){
-      return $this->empty_response();
+      $response['id'] = 'Kosong';
+      // return $this->empty_response();
+      return $response;
     }else{
       $where = array(
         "id"=>$id

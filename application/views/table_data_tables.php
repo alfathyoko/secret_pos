@@ -320,9 +320,9 @@
         function deleteData(){
           var valId = $("#formIdDelete").val();
           $.ajax({
-            url: '<?= base_url() ?>/api/delete_data_post',
-            type: 'POST',
-            dataType: 'JSON',
+            url: '<?= base_url() ?>/api/hapus',
+            type: 'DELETE',
+            // dataType: 'JSON',
             data: {id: valId},
           })
           .done((data) => {
