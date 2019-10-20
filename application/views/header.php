@@ -61,7 +61,7 @@
                         </ul>
                     </li> -->
                     <li>
-                        <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Meja</span> <span class="label label-primary pull-right">NEW</span></a>
+                        <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Dashboard</span> <span class="label label-primary pull-right">NEW</span></a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Penjualan</span><span class="fa arrow"></span></a>
