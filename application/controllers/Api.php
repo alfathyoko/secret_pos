@@ -37,7 +37,7 @@ class Api extends REST_Controller{
             "name" => $value['name'],
             "address" => $value['address'],
             "phone" => $value['phone'],
-            "action" => $btn,
+            // "action" => $btn,
         );
         $no++;
     }
